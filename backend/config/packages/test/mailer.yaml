@@ -1,0 +1,6 @@
+framework:
+    mailer:
+        envelope:
+            # catch and route all emails to the debug recipients instead of
+            # sending them to the real recipient(s)
+            recipients: ["developers@totalcom.it"]

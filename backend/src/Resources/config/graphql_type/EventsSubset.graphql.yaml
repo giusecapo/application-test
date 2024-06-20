@@ -1,0 +1,15 @@
+EventsSubset:
+    type: object
+    config:
+        fields:
+            items:
+                type: "[Event!]!"
+            count:
+                type: Int!
+            totalCount:
+                type: Int!
+            hasPreviousPage:
+                type: Boolean!
+            hasNextPage:
+                type: Boolean!
+        resolveField: '@=resolver("App\\GraphQL\\Resolver\\EventsSubsetResolver", [info, value, args, context])'

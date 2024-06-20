@@ -1,0 +1,22 @@
+App\Document\Event:
+    constraints:
+        - App\Validator\ConstraintValidProgram: { groups: [create, user_create, update, user_update] }
+    properties:
+        id:
+            - NotBlank: { groups: [update, user_update] }
+        version:
+            - NotBlank: { groups: [update, user_update] }
+            - Positive: { groups: [update, user_update] }
+        key:
+            - Length: { min: 2, max: 100, groups: [create, user_create, update, user_update] }
+        name:
+            - NotBlank: { groups: [create, user_create, update, user_update] }
+            - Length: { min: 2, max: 100, groups: [create, user_create, update, user_update] }
+        date:
+            - NotBlank: { groups: [create, user_create, update, user_update] }
+        participants:
+            - All:
+                - Type: { type: string, groups: [create, user_create, update, user_update] }
+                - NotBlank: { groups: [create, user_create, update, user_update] }
+                - Length: { min: 1, max: 100, groups: [create, user_create, update, user_update] }
+            

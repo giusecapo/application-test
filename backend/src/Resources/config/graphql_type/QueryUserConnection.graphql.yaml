@@ -1,0 +1,13 @@
+QueryUserConnection:
+    type: object
+    config:
+        fields:
+            pageInfos:
+                type: PageInfos! #the type is called PageInfos instead of PageInfo to avoid conflicts with the vendor defined type
+            edges:
+                type: "[QueryUserEdge!]!"
+            count:
+                type: Int!
+            totalCount:
+                type: Int!
+        resolveField: '@=resolver("App\\GraphQL\\Resolver\\QueryUserConnectionResolver", [info, value, args, context])'

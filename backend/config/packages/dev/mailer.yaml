@@ -1,0 +1,7 @@
+framework:
+    mailer:
+        dsn: 'null://null'
+        # catch and route all emails to the debug recipients instead of
+        # sending them to the real recipient(s)
+        #envelope:
+        #    recipients: ["developers@totalcom.it"]

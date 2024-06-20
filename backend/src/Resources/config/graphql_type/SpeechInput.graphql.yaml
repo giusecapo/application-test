@@ -1,0 +1,12 @@
+SpeechInput:
+    type: input-object
+    config:
+        fields:
+            topic:
+                type: String!
+            speaker:
+                type: String!
+            startTime:
+                type: Int!
+            endTime:
+                type: Int!

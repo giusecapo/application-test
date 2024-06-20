@@ -1,0 +1,8 @@
+QueryUserEdge:
+    type: object
+    config:
+        fields:
+            cursor:
+                type: String!
+            node:
+                type: User!

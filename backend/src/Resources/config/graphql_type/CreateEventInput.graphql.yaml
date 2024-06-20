@@ -1,0 +1,14 @@
+CreateEventInput:
+    type: input-object
+    config:
+        fields:
+            key:
+                type: String!
+            name:
+                type: String!
+            date:
+                type: DateTime!
+            participants:
+                type: "[String!]!"
+            program:
+                type: "[SpeechInput!]!"

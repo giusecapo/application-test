@@ -1,0 +1,16 @@
+#!!!IMPORTANT: explicitly declare the types implementing NodeInterface in config/packages/graphql.yaml,
+#because they won't be autodiscovered
+User:
+    type: object
+    config:
+        interfaces: [NodeInterface]
+        fields:
+            id:
+                type: ID!
+            version:
+                type: String!
+            username:
+                type: String!
+            roles:
+                type: "[String!]!"
+        resolveField: '@=resolver("App\\GraphQL\\Resolver\\UserResolver", [info, value, args, context])'

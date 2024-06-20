@@ -1,0 +1,15 @@
+UsersSubset:
+    type: object
+    config:
+        fields:
+            items:
+                type: "[User!]!"
+            count:
+                type: Int!
+            totalCount:
+                type: Int!
+            hasPreviousPage:
+                type: Boolean!
+            hasNextPage:
+                type: Boolean!
+        resolveField: '@=resolver("App\\GraphQL\\Resolver\\UsersSubsetResolver", [info, value, args, context])'

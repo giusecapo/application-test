@@ -1,0 +1,3 @@
+overblog_graphql:
+    definitions:
+        config_validation: false

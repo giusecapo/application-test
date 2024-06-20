@@ -1,0 +1,34 @@
+security:
+    access_decision_manager:
+        strategy: unanimous
+        allow_if_all_abstain: false
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_ADMIN, ROLE_USER]
+        ROLE_USER:
+    password_hashers:
+        App\Document\User:
+            algorithm: auto
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        user_provider:
+            id: App\Security\UserProvider
+    firewalls:
+        stateful:
+            anonymous: true
+            lazy: true
+            logout:
+                path: logout
+            switch_user: false
+            provider: user_provider
+            guard:
+                authenticators:
+                    - App\Security\StatefulAuthenticator
+
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+    # Easy way to control access for large sections of your site
+    # Note: Only the first access control that matches will be used
+    access_control:
+        - { path: ^/login, roles: PUBLIC_ACCESS }

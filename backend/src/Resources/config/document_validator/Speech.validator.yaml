@@ -1,0 +1,19 @@
+App\Document\Speech:
+    properties:
+        topic:
+            - NotBlank: { groups: [create, user_create, update, user_update] }
+            - Length: { min: 2, max: 1000, groups: [create, user_create, update, user_update] }
+        speaker:
+            - NotBlank: { groups: [create, user_create, update, user_update] }
+            - Length: { min: 2, max: 1000, groups: [create, user_create, update, user_update] }
+        startTime:
+            - NotBlank: { groups: [create, user_create, update, user_update] }
+            # 420 is the minimum value for the startTime, which is 7:00am
+            - GreaterThanOrEqual: { value: 420, groups: [create, user_create, update, user_update] }
+        endTime:
+            - NotBlank: { groups: [create, user_create, update, user_update] }
+            # 1200 is the maximum value for the endTime, which is 8:00pm
+            - LessThanOrEqual: { value: 1200, groups: [create, user_create, update, user_update] }
+            # endTime must be greater than startTime
+            - GreaterThan: { propertyPath: startTime, groups: [create, user_create, update, user_update] }
+        

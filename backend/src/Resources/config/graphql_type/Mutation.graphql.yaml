@@ -1,0 +1,54 @@
+Mutation:
+    type: object
+    config:
+        fields:
+            deleteNode:
+                type: DeleteNodePayload!
+                description: "Delete a document by it's id"
+                complexity: "@=200 + childrenComplexity"
+                args:
+                    input:
+                        type: DeleteNodeInput!
+                resolve: '@=mutation("App\\GraphQL\\Mutation\\NodeMutations::deleteNode", [args["input"]])'
+            deleteNodes:
+                type: "[DeleteNodePayload]!"
+                description: "Delete a set of documents by its ids"
+                complexity: "@=600 + childrenComplexity"
+                args:
+                    input:
+                        type: "[DeleteNodeInput!]!"
+                resolve: '@=mutation("App\\GraphQL\\Mutation\\NodeMutations::deleteNodes", [args["input"]])'
+
+            createUser:
+                type: UserPayload!
+                description: "Create a new system user"
+                complexity: "@=300 + childrenComplexity"
+                args:
+                    input:
+                        type: CreateUserInput!
+                resolve: '@=mutation("App\\GraphQL\\Mutation\\UserMutations::createUser", [args["input"]])'
+            updateUser:
+                type: UserPayload!
+                description: "Update an existing system user"
+                complexity: "@=300 + childrenComplexity"
+                args:
+                    input:
+                        type: UpdateUserInput!
+                resolve: '@=mutation("App\\GraphQL\\Mutation\\UserMutations::updateUser", [args["input"]])'
+
+            createEvent:
+                type: EventPayload!
+                description: "Create a new system event"
+                complexity: "@=300 + childrenComplexity"
+                args:
+                    input:
+                        type: CreateEventInput!
+                resolve: '@=mutation("App\\GraphQL\\Mutation\\EventMutations::createEvent", [args["input"]])'
+            updateEvent:
+                type: EventPayload!
+                description: "Update an existing system event"
+                complexity: "@=300 + childrenComplexity"
+                args:
+                    input:
+                        type: UpdateEventInput!
+                resolve: '@=mutation("App\\GraphQL\\Mutation\\EventMutations::updateEvent", [args["input"]])'

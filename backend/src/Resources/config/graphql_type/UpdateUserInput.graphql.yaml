@@ -1,0 +1,17 @@
+UpdateUserInput:
+    type: input-object
+    config:
+        fields:
+            id:
+                type: ID!
+            version:
+                type: String!
+            username:
+                type: String
+            unhashedPassword:
+                type: String
+            currentUnhashedPassword:
+                type: String
+            roles:
+                type: "[String]"
+           

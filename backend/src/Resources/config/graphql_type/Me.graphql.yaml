@@ -1,0 +1,17 @@
+Me:
+    type: object
+    config:
+        fields:
+            user:
+                type: User
+                complexity: "@=100 + childrenComplexity"
+            authenticated:
+                type: Boolean!
+            grantedRoles:
+                type: "[String!]!"
+            isGrantedRole:
+                type: Boolean!
+                args:
+                    role:
+                        type: String!
+        resolveField: '@=resolver("App\\GraphQL\\Resolver\\MeResolver", [info, value, args])'

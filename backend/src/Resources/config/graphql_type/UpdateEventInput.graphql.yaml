@@ -1,0 +1,19 @@
+UpdateEventInput:
+    type: input-object
+    config:
+        fields:
+            id:
+                type: ID!
+            version:
+                type: String!
+            key:
+                type: String
+            name:
+                type: String
+            date:
+                type: DateTime
+            participants:
+                type: "[String!]"
+            program:
+                type: "[SpeechInput!]"
+           

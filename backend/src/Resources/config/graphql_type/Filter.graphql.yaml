@@ -1,0 +1,12 @@
+Filter:
+    type: input-object
+    config:
+        fields:
+            field:
+                type: String!
+            operator:
+                type: FilterOperator!
+            value:
+                type: String!
+            valueType:
+                type: FilterValueType!

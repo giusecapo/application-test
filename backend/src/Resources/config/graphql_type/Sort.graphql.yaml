@@ -1,0 +1,8 @@
+Sort:
+    type: input-object
+    config:
+        fields:
+            sortBy:
+                type: String!
+            sortDirection:
+                type: SortDirection!

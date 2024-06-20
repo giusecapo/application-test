@@ -1,0 +1,94 @@
+###> symfony/framework-bundle ###
+/**/.env.local
+/**/.env.local.php
+/**/.env.*.local
+/**/.env.docker-compose.*
+
+/config/secrets/prod/prod.decrypt.private.php
+/backend/public/bundles/
+/backend/var/
+/backend/vendor/
+###< symfony/framework-bundle ###
+
+
+###> symfony/phpunit-bridge ###
+.phpunit
+.phpunit.result.cache
+/backend/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###< IDE / Editor
+.vscode
+###> IDE / Editor
+
+###< Other ###
+.DS_Store
+
+*.local
+###> Other ###
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+
+/backend/.composer
+
+/docker/dev/env/*
+!/docker/dev/env/.gitkeep
+!/docker/dev/env/.env.*.example
+
+/docker/staging/secrets/*
+!/docker/staging/secrets/.gitkeep
+
+/docker/staging/env/*
+!/docker/staging/env/.gitkeep
+!/docker/staging/env/.env.*.example
+
+/docker/prod/secrets/*
+!/docker/prod/secrets/.gitkeep
+
+/docker/prod/env/*
+!/docker/prod/env/.gitkeep
+!/docker/prod/env/.env.*.example
+
+/tmp/*
+!/tmp/.gitkeep
+
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###
+
+
+# dependencies
+node_modules
+/frontend/.pnp
+.pnp.js
+
+# testing
+/*/coverage
+
+# next.js
+/frontend/.next/
+/frontend/out/
+
+# production
+/frontend/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts

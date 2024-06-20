@@ -1,0 +1,40 @@
+FilterOperator:
+    type: enum
+    config:
+        values:
+            IN:
+                value: "in"
+            NOT_IN:
+                value: "notIn"
+            EQUALS:
+                value: "equals"
+            EQUALS_CASE_INSENSITIVE:
+                value: "equalsCaseInsensitive"
+            EQUALS_REGEX:
+                value: "equalsRegex"
+            CONTAINS:
+                value: "contains"
+            STARTS_WITH:
+                value: "startsWith"
+            NOT_EQUAL:
+                value: "notEqual"
+            TEXT:
+                value: "text"
+            GT:
+                value: "gt"
+            GTE:
+                value: "gte"
+            LT:
+                value: "lt"
+            LTE:
+                value: "lte"
+            SIZE:
+                value: "size"
+            EXISTS:
+                value: "exists"
+            ALL:
+                value: "all"
+            GEO_WITHIN_POLYGON:
+                value: "geoWithinPolygon"
+            GEO_WITHIN_CIRCLE:
+                value: "geoWithinCircle"

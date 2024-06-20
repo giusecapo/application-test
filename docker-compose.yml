@@ -1,0 +1,84 @@
+version: '3.8'
+
+services:
+  
+
+  db:
+    image: mongo:7
+    ports:
+      - 27017:27017
+      - 27017
+    volumes:
+      - db_data:/data/db
+    networks:
+        - network
+    hostname: db
+
+
+  query_cache:
+    image: redis:7-alpine
+    volumes:
+      - ./docker/dev/config/query_cache/usr/local/etc/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - 6379:6379
+      - 6379
+    networks:
+        - network
+    hostname: query_cache
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    
+
+  backend:
+    image: davidetriso/symfony:php-8.3-fpm
+    user: 1000:1000
+    volumes:
+      - ./backend:/var/www/html/:rw
+      - ./docker/dev/config/backend/usr/local/etc/php/conf.d/999-custom-php.ini:/usr/local/etc/php/conf.d/999-custom-php.ini:ro
+    networks:
+        - network
+    hostname: backend
+    ports:
+      - 9000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - db
+      - query_cache
+
+
+  webserver:
+    image: davidetriso/nginx:latest
+    ports:
+      - 3050:80
+    volumes:
+      - ./docker/dev/config/webserver/etc/nginx/templates:/etc/nginx/templates:ro
+    networks:
+        network:
+    depends_on:
+      - backend
+
+  
+  frontend:
+    image: davidetriso/nextjs:node-20.7
+    user: 1000:1000
+    environment:
+      ENV: dev
+    ports:
+      - 3051:3000
+    volumes:
+      - ./frontend:/app
+    networks:
+        - network
+    hostname: frontend
+    depends_on:
+      - backend
+      - webserver
+
+
+volumes:
+  db_data:
+
+networks:
+  network:
+    name: application_test
+    

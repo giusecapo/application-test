@@ -1,0 +1,39 @@
+overblog_graphql:
+    definitions:
+        use_classloader_listener: true
+        auto_compile: true
+        schema:
+            query: Query
+            mutation: Mutation
+            # explicitly declare the types implementing NodeInterface, because they won't be autodiscovered
+            types:
+                - DateTime
+                - User
+                - Event
+        mappings:
+            types:
+                - type: yaml
+                  dir: "%kernel.project_dir%/src/Resources/config/graphql_type/"
+                  suffix: .graphql
+        cache_dir: "%kernel.project_dir%/src/GraphQL/Schema"
+        class_namespace: "App\\GraphQL\\Schema"
+    errors_handler:
+        map_exceptions_to_parent: false
+        exceptions:
+            errors:
+                - \DomainException
+                - \InvalidArgumentException
+                - \RuntimeException
+                - Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
+                - Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
+                - Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+                - Symfony\Component\HttpKernel\Exception\ConflictHttpException
+                - Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException
+                - Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException
+                - Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException
+                - Overblog\GraphQLBundle\Error\UserError
+                - Overblog\GraphQLBundle\Error\UserErrors
+    security:
+        query_max_depth: 20
+        query_max_complexity: 3000
+        enable_introspection: false

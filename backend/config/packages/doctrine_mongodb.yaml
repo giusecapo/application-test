@@ -1,0 +1,23 @@
+doctrine_mongodb:
+    auto_generate_proxy_classes: true
+    auto_generate_hydrator_classes: true
+    types:
+        compressed_hash: App\Service\QueryHelper\Type\CompressedHashType
+        document_revisions: App\Service\QueryHelper\Type\DocumentRevisionsType
+    connections:
+        default:
+            server: "%env(resolve:MONGODB_URL)%"
+            options:
+                db: "%env(MONGODB_DB)%"
+    default_database: "%env(resolve:MONGODB_DB)%"
+    document_managers:
+        default:
+            logging: false
+            auto_mapping: true
+            mappings:
+                App\Document:
+                    is_bundle: false
+                    type: xml
+                    dir: "%kernel.project_dir%/src/Resources/config/document/"
+                    prefix: 'App\Document'
+                    alias: App\Document

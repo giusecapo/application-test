@@ -1,0 +1,19 @@
+App\Document\User:
+    properties:
+        id:
+            - NotBlank: { groups: [update, user_update] }
+        version:
+            - NotBlank: { groups: [update, user_update] }
+            - Positive: { groups: [update, user_update] }
+        username:
+            - NotBlank: { groups: [create, user_create, update, user_update] }
+            - Email: { groups: [create, user_create, update, user_update] }
+        unhashedPassword:
+            - Length: { min: 10, max: 100, groups: [create, user_create, update, user_update] }
+            - NotCompromisedPassword: { skipOnError: true, groups: [create, user_create, update, user_update] }
+        password:
+            - NotBlank: { groups: [create, update, user_update] }
+        roles:
+            - NotBlank: { groups: [create, user_create, update, user_update] }
+            - All:
+                  - Regex: { pattern: '/^ROLE_[A-Z0-9\-_]{1,100}$/', groups: [create, user_create, update, user_update] }

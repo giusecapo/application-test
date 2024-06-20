@@ -1,0 +1,10 @@
+CreateUserInput:
+    type: input-object
+    config:
+        fields:
+            username:
+                type: String!
+            unhashedPassword:
+                type: String!
+            roles:
+                type: "[String!]!"

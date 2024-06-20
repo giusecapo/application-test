@@ -1,0 +1,47 @@
+FilterValueType:
+    type: enum
+    config:
+        description: "Provide a hint on how to cast the filter's value."
+        values:
+            STRING:
+                value: "STRING"
+            BOOL:
+                value: "BOOL"
+            INT:
+                value: "INT"
+            FLOAT:
+                value: "FLOAT"
+            DATETIME:
+                value: "DATETIME"
+            STRING_LIST:
+                value: "STRING_LIST"
+            INT_LIST:
+                value: "INT_LIST"
+            FLOAT_LIST:
+                value: "FLOAT_LIST"
+            BOOL_LIST:
+                value: "BOOL_LIST"
+            DATETIME_LIST:
+                value: "DATETIME_LIST"
+            REFERENCE:
+                value: "REFERENCE"
+            REFERENCE_LIST:
+                value: "REFERENCE_LIST"
+            STRING_LIST_NULLABLE:
+                value: "STRING_LIST_NULLABLE"
+            INT_LIST_NULLABLE:
+                value: "INT_LIST_NULLABLE"
+            FLOAT_LIST_NULLABLE:
+                value: "FLOAT_LIST_NULLABLE"
+            BOOL_LIST_NULLABLE:
+                value: "BOOL_LIST_NULLABLE"
+            DATETIME_LIST_NULLABLE:
+                value: "DATETIME_LIST_NULLABLE"
+            POLYGON:
+                value: "POLYGON"
+                description: "Value format: lng,lat|lng,lat|lng,lat. The edges of the polygon should not cross. The last closing point can be omitted."
+            CIRCLE:
+                value: "CIRCLE"
+                description: "Value format: lng,lat|distance. The server utilizes the given values to compute the points of a polygon, 
+                    which approximates a circle centered at the provided latitude and longitude, and a radius equal to the provided distance on the earth surface. 
+                    The distance is expressed in meters and must be a value greater than 0 and lower than 10.000.000."

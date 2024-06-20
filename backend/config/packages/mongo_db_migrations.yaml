@@ -1,0 +1,7 @@
+mongo_db_migrations:
+    collection_name: "mongodb_migrations_versions"
+    database_name: "%env(resolve:MONGODB_DB)%"
+    dir_name: "%kernel.project_dir%/src/Migration/MongoDB"
+    script_dir_name: "%kernel.project_dir%/Resources/mongo_db_migrations_scripts"
+    name: "MongoDB migrations"
+    namespace: "App\\Migration\\MongoDB"

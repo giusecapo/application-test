@@ -1,0 +1,7 @@
+NodeInterface:
+    type: interface
+    config:
+        resolveType: '@=resolver("App\\GraphQL\\Resolver\\NodeInterfaceResolver::resolveType", [value, typeResolver])'
+        fields:
+            id:
+                type: ID!

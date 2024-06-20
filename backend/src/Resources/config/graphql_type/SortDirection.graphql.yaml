@@ -1,0 +1,8 @@
+SortDirection:
+    type: enum
+    config:
+        values:
+            ASC:
+                value: 1
+            DESC:
+                value: -1

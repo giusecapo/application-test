@@ -1,0 +1,6 @@
+UserPayload:
+    type: object
+    config:
+        fields:
+            user:
+                type: User!

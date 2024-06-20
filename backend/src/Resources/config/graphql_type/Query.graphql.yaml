@@ -1,0 +1,83 @@
+Query:
+    type: object
+    config:
+        fields:
+
+            me:
+                type: Me!
+                description: "Returns information about the current user"
+                complexity: "@=100 + childrenComplexity"
+                resolve: '@=resolver("App\\GraphQL\\Resolver\\MeResolver::resolveMe")'
+
+            node:
+                type: NodeInterface
+                description: "Returns any type implementing NodeInterface by it's global ID"
+                complexity: "@=100 + childrenComplexity"
+                args:
+                    id:
+                        type: ID!
+                resolve: '@=resolver("App\\GraphQL\\Resolver\\NodeResolver::resolveOneById", [args["id"]])'
+
+          
+            user:
+                type: User
+                description: "A system user"
+                complexity: "@=100 + childrenComplexity"
+                args:
+                    username:
+                        type: String!
+                resolve: '@=resolver("App\\GraphQL\\Resolver\\UserResolver::resolveOneByUsername", [args["username"]])'
+            usersSubset:
+                type: UsersSubset!
+                description: "Paginate through users. Optionally filter the data set."
+                complexity: "@=200 + childrenComplexity"
+                args:
+                    limit:
+                        type: Int!
+                    offset:
+                        type: Int!
+                    sort:
+                        type: Sort
+                    filters:
+                        type: "[Filter]"
+                resolve: '@=resolver("App\\GraphQL\\Resolver\\UsersSubsetResolver::resolveSubset", [args])'
+            queryUserConnection:
+                type: QueryUserConnection!
+                description: "Paginate through users. Optionally filter the data set."
+                complexity: "@=200 + childrenComplexity"
+                args:
+                    first:
+                        type: Int
+                    after:
+                        type: String
+                    last:
+                        type: Int
+                    before:
+                        type: String
+                    sort:
+                        type: Sort
+                    filters:
+                        type: "[Filter]"
+                resolve: '@=resolver("App\\GraphQL\\Resolver\\QueryUserConnectionResolver::resolveConnection", [args])'
+        
+            event:
+                type: Event
+                complexity: "@=100 + childrenComplexity"
+                args:
+                    key:
+                        type: String!
+                resolve: '@=resolver("App\\GraphQL\\Resolver\\EventResolver::resolveOneByKey", [args["key"]])'
+            eventsSubset:
+                type: EventsSubset!
+                description: "Paginate through events. Optionally filter the data set."
+                complexity: "@=200 + childrenComplexity"
+                args:
+                    limit:
+                        type: Int!
+                    offset:
+                        type: Int!
+                    sort:
+                        type: Sort
+                    filters:
+                        type: "[Filter]"
+                resolve: '@=resolver("App\\GraphQL\\Resolver\\EventsSubsetResolver::resolveSubset", [args])'

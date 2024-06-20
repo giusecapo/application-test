@@ -1,0 +1,18 @@
+<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
+                    http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
+
+    <document name="App\Document\Event" collection="Events" inheritance-type="COLLECTION_PER_CLASS" change-tracking-policy="DEFERRED_EXPLICIT">
+        <field field-name="key" type="string" order="asc" />
+        <field field-name="name" type="string" />
+        <field field-name="participants" type="collection" />
+        <field field-name="date" type="date" />
+        <embed-many field="program" target-document="App\Document\Speech" />
+        <indexes>
+            <index>
+                <option name="unique" value="true" />
+                <key name="key" order="asc" />
+            </index>
+        </indexes>
+    </document>
+</doctrine-mongo-mapping>

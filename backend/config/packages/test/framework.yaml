@@ -1,0 +1,6 @@
+framework:
+    test: true
+
+    session:
+        #See https://symfony.com/doc/current/components/http_foundation/session_testing.html for details
+        storage_id: session.storage.mock_file

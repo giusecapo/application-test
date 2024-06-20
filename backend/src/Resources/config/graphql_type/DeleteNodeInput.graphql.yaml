@@ -1,0 +1,9 @@
+DeleteNodeInput:
+    type: input-object
+    config:
+        fields:
+            id:
+                type: ID!
+            version:
+                type: String
+                description: "This field is mandatory for all the types which have a version field"

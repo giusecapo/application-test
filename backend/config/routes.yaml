@@ -1,0 +1,11 @@
+index:
+    path: /
+    controller: App\Controller\IndexController::index
+
+login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+    methods: POST
+logout:
+    path: /logout
+    methods: GET

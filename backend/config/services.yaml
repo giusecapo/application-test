@@ -1,0 +1,74 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+#imports:
+
+parameters:
+    container.dumper.inline_factories: true
+    container.dumper.inline_class_loader: true
+
+    #App env config
+    app.secret: "%env(APP_SECRET)%"
+    #Define on which hosts to allow stateful authentication (cookie session).
+    #The value is a regular expression (e.g. ^www\.example\.com$)
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: "../src/*"
+        exclude: "../src/{DependencyInjection,Entity,Document,Migration,Tests,Kernel.php}"
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: "../src/Controller"
+        tags: ["controller.service_arguments"]
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    Twig\Extension\StringLoaderExtension: ~
+
+    App\Command\DbBootstrapCommand:
+        arguments:
+            $env: "%kernel.environment%"
+
+    App\Command\DbBootstrapDevCommand:
+        arguments:
+            $env: "%kernel.environment%"
+
+    App\DocumentModel\UserModel:
+        arguments:
+            $appSecret: "%app.secret%"
+
+    App\Service\GraphQL\FieldEncryptionProvider:
+        arguments:
+            $appSecret: "%app.secret%"
+
+    App\Service\Document\ReadWriteHelper:
+        arguments:
+            $createAttribute: CREATE
+            $readAttribute: READ
+            $updateAttribute: UPDATE
+            $deleteAttribute: DELETE
+            $onPreCreateEventClassName: "App\\Event\\DocumentOnPreCreateEvent"
+            $onAfterCreateEventClassName: "App\\Event\\DocumentOnAfterCreateEvent"
+            $beforeCreatedEventClassName: "App\\Event\\DocumentBeforeCreatedEvent"
+            $afterCreatedEventClassName: "App\\Event\\DocumentAfterCreatedEvent"
+            $onPreUpdateEventClassName: "App\\Event\\DocumentOnPreUpdateEvent"
+            $onAfterUpdateEventClassName: "App\\Event\\DocumentOnAfterUpdateEvent"
+            $beforeUpdatedEventClassName: "App\\Event\\DocumentBeforeUpdatedEvent"
+            $afterUpdatedEventClassName: "App\\Event\\DocumentAfterUpdatedEvent"
+            $onPreDeleteEventClassName: "App\\Event\\DocumentOnPreDeleteEvent"
+            $onAfterDeleteEventClassName: "App\\Event\\DocumentOnAfterDeleteEvent"
+            $beforeDeletedEventClassName: "App\\Event\\DocumentBeforeDeletedEvent"
+            $afterDeletedEventClassName: "App\\Event\\DocumentAfterDeletedEvent"
+
+    App\Service\QueryHelper\QueryHelper:
+        public: true

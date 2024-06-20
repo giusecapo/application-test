@@ -1,0 +1,6 @@
+EventPayload:
+    type: object
+    config:
+        fields:
+            event:
+                type: Event!
