@@ -36,7 +36,9 @@ export default async function Event({
                 <Col xs={24} sm={20} md={16} lg={14} xl={10} xxl={8}>
                     <Header event={data.node} />
                     <Card title="Program">
-                        <Program />
+                        <Program
+                            program={data.node.program} 
+                        />
                     </Card>
                 </Col>
             </Row>

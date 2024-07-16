@@ -1,6 +1,5 @@
 
 'use client';
-
 // TODO: 
 // Implement the Program component.
 // The component should receive the program data as a prop and list the details of each speech.
@@ -9,11 +8,17 @@
 // Each list item should display the topic, speaker, and the start and end times of the speech (formatted as HH:mm).
 // Define reusable functions in the frontend/src/lib/Utility.ts file.
 // Define sub-components in a sub-directory of the current directory.
+import { List } from "antd";
+import { SpeechInterface } from "../../../../../types/DataModelTypes/SpeechInterface";
+import { ProgramItem } from "./_components/ProgramItem";
 
-export default function Program() {
+export default function Program({program}: {program: SpeechInterface[]}) {
     return (
-        <>
-        </>
+        <List 
+            dataSource={program}
+            renderItem={(item) => ProgramItem(item)}
+        >
+        </List>
     );
 
 }
