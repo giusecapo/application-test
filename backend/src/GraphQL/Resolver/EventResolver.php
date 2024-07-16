@@ -89,6 +89,7 @@ final class EventResolver implements ResolverInterface
     private function resolveParticipants(Event $event, ArgumentInterface $args): array
     {
         $queryString = $args['queryString'];
+
         // TODO: 
         // If queryString is provided, filter participants by it 
         // and return all participants that contain the query string.

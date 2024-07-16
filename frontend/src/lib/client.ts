@@ -1,6 +1,6 @@
 import { headers } from 'next/headers'
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
-import { registerApolloClient } from "@apollo/experimental-nextjs-app-support/rsc";
+import { registerApolloClient } from "@apollo/experimental-nextjs-app-support";
 import { graphqlUrl } from "./uris";
 
 /**
@@ -14,6 +14,7 @@ import { graphqlUrl } from "./uris";
  * 
  * Use this client for all requests that require the user's permissions to be checked.
  */
+
 export const { getClient } = registerApolloClient(() => {
     const headersInstance = headers();
     return new ApolloClient({

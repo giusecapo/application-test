@@ -1,5 +1,7 @@
+export const isServer = () => typeof window === `undefined`;
+
 const defaultUrl: string = process.env.NEXT_PUBLIC_DEFAULT_URL ?? "";
-const graphqlUrl: string = process.env.NEXT_PUBLIC_GRAPHQL_URL ?? "";
+const graphqlUrl: string = isServer ? process.env.NEXT_PUBLIC_GRAPHQL_DOCKER_URL : process.env.NEXT_PUBLIC_GRAPHQL_URL;
 
 export {
     defaultUrl,
