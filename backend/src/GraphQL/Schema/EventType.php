@@ -110,6 +110,11 @@ final class EventType extends ObjectType implements GeneratedTypeInterface
                 'program' => [
                     'type' => Type::nonNull(Type::listOf(Type::nonNull($globalVariable->get('typeResolver')->resolve('Speech')))),
                     'args' => [
+                        [
+                            'name' => 'sortByStartTime',
+                            'type' => $globalVariable->get('typeResolver')->resolve('SortDirection'),
+                            'description' => null,
+                        ],
                     ],
                     'resolve' => null,
                     'description' => null,

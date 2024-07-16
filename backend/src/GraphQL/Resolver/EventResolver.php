@@ -6,6 +6,7 @@ namespace App\GraphQL\Resolver;
 
 use App\Document\Event;
 use App\DocumentModel\EventModel;
+use App\GraphQL\Schema\SortDirectionType;
 use App\Service\GraphQL\Buffer;
 use GraphQL\Type\Definition\ResolveInfo;
 use Overblog\GraphQLBundle\Definition\ArgumentInterface;
@@ -17,6 +18,8 @@ use GraphQL\Deferred;
 use App\Service\GraphQL\FieldEncryptionProvider;
 use Doctrine\Common\Collections\Collection;
 use App\Service\GraphQL\GetByFieldValuesQueryArgumentsProvider;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 
 use function in_array;
 
@@ -86,23 +89,84 @@ final class EventResolver implements ResolverInterface
         return $this->fieldEncryptionProvider->encrypt($version, $id);
     }
 
+   
+    // TEST on GraphiQL: 
+    // query {
+    //     node(id: "QXBwXERvY3VtZW50XEV2ZW50fDY2OTYxNTc4YTE2NWEwOTMwMDAzYmUxNA==") {
+    //         id
+    //         ... on Event {
+    //               key
+    //             name
+    //             date
+    //             program {
+    //               topic
+    //               speaker
+    //               startTime
+    //               endTime
+    //             }
+    //               participants(queryString: "Lauren")
+    //         }
+    //     }
+    // }
+
     private function resolveParticipants(Event $event, ArgumentInterface $args): array
     {
-        $queryString = $args['queryString'];
+        $queryString = $args['queryString'] ?? '';
+        $participants = $event->getParticipants();
 
-        // TODO: 
-        // If queryString is provided, filter participants by it 
-        // and return all participants that contain the query string.
-        // The search should be case-insensitive.
-        // If the query string is not provided, return all participants.
-        return $event->getParticipants();
+        if (!empty($queryString)) {
+            $queryString = strtolower($queryString);
+            $filteredParticipants = array_filter($participants, function($participant) use ($queryString) {
+                return strpos(strtolower($participant), $queryString) !== false;
+            });
+
+            return $filteredParticipants;
+        }
+
+        return $participants;
     }
 
-    private function resolveProgram(Event $event): Collection
+
+    // TEST on GraphiQL:
+
+    // query {
+    //     node(id: "QXBwXERvY3VtZW50XEV2ZW50fDY2OTYxNTc4YTE2NWEwOTMwMDAzYmUxNA==") {
+    //         id
+    //         ... on Event {
+    //               key
+    //             name
+    //             date
+    //             program(sortByStartTime: DESC) {
+    //               topic
+    //               speaker
+    //               startTime
+    //               endTime
+    //             }
+    //               participants(queryString: "Lauren")
+    //         }
+    //     }
+    // }
+    private function resolveProgram(Event $event, ArgumentInterface $args): Collection
     {
-        // TODO:
-        // Event::program is a collection of Speech objects.
-        // Return the event's program with the speeches sorted by startTime.
-        return $event->getProgram();
+
+        $sortByStartTime = $args['sortByStartTime']; 
+
+        $program = $event->getProgram();
+
+        if(!$sortByStartTime) return $program;
+
+        $values = $program->getValues();
+
+        if($sortByStartTime === 1){
+            usort($values, function($a, $b) {
+                return $a->getStartTime() > $b->getStartTime();
+            });
+        } else {
+            usort($values, function($a, $b) {
+                return $a->getStartTime() < $b->getStartTime();
+            });
+        }
+
+        return new ArrayCollection($values);
     }
 }

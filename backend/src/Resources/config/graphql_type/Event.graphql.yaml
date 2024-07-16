@@ -22,4 +22,7 @@ Event:
                         type: String
             program:
                 type: "[Speech!]!"
+                args:
+                    sortByStartTime:
+                        type: SortDirection
         resolveField: '@=resolver("App\\GraphQL\\Resolver\\EventResolver", [info, value, args, context])'
